@@ -13,7 +13,7 @@ matrix:
         - ./utils/zrobot_install.sh ${zrobot_branch}
 
       script:
-        - bash tests/integration_tests/travis/travis_script.sh
+        - bash tests/integration_tests/run_test.sh
         
     - language: python
       sudo: required
