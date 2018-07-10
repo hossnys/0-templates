@@ -11,16 +11,18 @@ matrix:
         - pip3 install -r tests/integration_tests/requirements.txt
         - ./utils/jumspcale_install.sh ${js9_branch}
         - ./utils/zrobot_install.sh ${zrobot_branch}
-
+        
+      before_script:
+        - bash tests/integration_tests/run_test.sh before
       script:
-        - bash tests/integration_tests/run_test.sh
+        - bash tests/integration_tests/run_test.sh run
+      after_script:
+        - bash tests/integration_tests/run_test.sh  after
         
     - language: python
       sudo: required
       dist: trusty
-
       python: 3.5
-
       install:
         - pip3 install codecov pytest pytest-cov
         - pip3 install -r requirements.txt

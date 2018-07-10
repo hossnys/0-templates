@@ -3,10 +3,10 @@ from random import randint
 import packet
 import time
 import os
-from zeroos.core0 import client
 import configparser
 import sys
 import requests
+from js9 import j
 
 
 def create_new_device(manager, hostname, branch='master'):
@@ -24,6 +24,7 @@ def create_new_device(manager, hostname, branch='master'):
         sys.exit(1)
 
     print("Available facility: %s" % available_facility)
+
     print('creating new machine  .. ')
     device = manager.create_device(project_id=project.id,
                                    hostname=hostname,
@@ -92,23 +93,21 @@ def create_pkt_machine(manager, branch):
         if dev.state == 'active':
             break
     print('Giving the machine time till it finish booting')
-    time.sleep(150)
+    time.sleep(300)
 
-    print('preparing machine for tests')
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    config['main']['target_ip'] = dev.ip_addresses[0]['address']
-    config['main']['machine_hostname'] = hostname
-    with open('config.ini', 'w') as configfile:
-        config.write(configfile)
+    with open('/tmp/ip.txt', 'w') as file:
+        file.write(dev.ip_addresses[0]['address'])
+
 
 if __name__ == '__main__':
     action = sys.argv[1]
     token = sys.argv[2]
+    print('action: {}'.format(action))
+
     manager = packet.Manager(auth_token=token)
     print(os.system('echo $TRAVIS_EVENT_TYPE'))
     if action == 'delete':
-        print('deleting the g8os machine ..')
+        print('deleting the packet machine ..')
         delete_device(manager)
     else:
         branch = sys.argv[3]

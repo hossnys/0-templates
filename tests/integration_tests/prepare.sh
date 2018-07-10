@@ -20,7 +20,7 @@ do
 done
 
 ## Cloning the framework
-git -C /tmp clone -b master https://github.com/0-complexity/G8_testing.git
+git -C /tmp clone -b travis_edit https://github.com/0-complexity/G8_testing.git
 cp -r /tmp/G8_testing/functional_testing/zrobot_templates/framework .
 rm -rf /tmp/G8_testing
 
@@ -31,9 +31,9 @@ if [ ${DEP} ]; then
   pip3 install -r requirements.txt
 fi
 
-## running testsuite
-if [ ${TESTSPATH} ]; then
-  echo " "
-  echo "* Running Tests"
-  nosetests -v -s ${TESTSPATH} --tc-file=config.ini
-fi
+# ## running testsuite
+# if [ ${TESTSPATH} ]; then
+#   echo " "
+#   echo "* Running Tests"
+#   nosetests -v -s ${TESTSPATH} --tc-file=config.ini
+# fi
