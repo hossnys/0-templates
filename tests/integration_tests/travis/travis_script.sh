@@ -27,7 +27,7 @@ ssh-keygen -t rsa -N "" -f  /tmp/test
 eval `ssh-agent -s`
 ssh-add /tmp/test
 
-sshkey_pub=$(</tmp/test.pub)
+sshkey_pub="$(cat /tmp/test.pub)"
 echo "[+] Copying testing framework ..."
 cd tests/integration_tests
 bash prepare.sh
